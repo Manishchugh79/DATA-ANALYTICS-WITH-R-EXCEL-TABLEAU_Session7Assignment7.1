@@ -37,6 +37,76 @@ Not Applicable
     Problem Statement
 
 1. Histogram for all variables in a dataset mtcars. Write a program to create histograms for all columns.
+Answer:
+> library(purrr)
+> library(tidyr)
+> library(ggplot2)
+> mtcars%>%
++   keep(is.numeric) %>% head()
+   mpg cyl disp  hp drat    wt  qsec vs am gear carb
+1 21.0   6  160 110 3.90 2.620 16.46  0  1    4    4
+2 21.0   6  160 110 3.90 2.875 17.02  0  1    4    4
+3 22.8   4  108  93 3.85 2.320 18.61  1  1    4    1
+4 21.4   6  258 110 3.08 3.215 19.44  1  0    3    1
+5 18.7   8  360 175 3.15 3.440 17.02  0  0    3    2
+6 18.1   6  225 105 2.76 3.460 20.22  1  0    3    1
+> d<-mtcars
+> d$vc<-factor(d$vs)
+> d$am<-factor(d$am)
+> d%>%str()
+'data.frame':	32 obs. of  13 variables:
+ $ X   : Factor w/ 32 levels "AMC Javelin",..: 18 19 5 13 14 31 7 21 20 22 ...
+ $ mpg : num  21 21 22.8 21.4 18.7 18.1 14.3 24.4 22.8 19.2 ...
+ $ cyl : int  6 6 4 6 8 6 8 4 4 6 ...
+ $ disp: num  160 160 108 258 360 ...
+ $ hp  : int  110 110 93 110 175 105 245 62 95 123 ...
+ $ drat: num  3.9 3.9 3.85 3.08 3.15 2.76 3.21 3.69 3.92 3.92 ...
+ $ wt  : num  2.62 2.88 2.32 3.21 3.44 ...
+ $ qsec: num  16.5 17 18.6 19.4 17 ...
+ $ vs  : int  0 0 1 1 0 1 0 1 1 1 ...
+ $ am  : Factor w/ 2 levels "0","1": 2 2 2 1 1 1 1 1 1 1 ...
+ $ gear: int  4 4 4 3 3 3 3 4 4 4 ...
+ $ carb: int  4 4 1 1 2 1 4 2 2 4 ...
+ $ vc  : Factor w/ 2 levels "0","1": 1 1 2 2 1 2 1 2 2 2 ...
+> library(purrr)
+> d %>% keep(is.numeric) %>% head()
+   mpg cyl disp  hp drat    wt  qsec vs gear carb
+1 21.0   6  160 110 3.90 2.620 16.46  0    4    4
+2 21.0   6  160 110 3.90 2.875 17.02  0    4    4
+3 22.8   4  108  93 3.85 2.320 18.61  1    4    1
+4 21.4   6  258 110 3.08 3.215 19.44  1    3    1
+5 18.7   8  360 175 3.15 3.440 17.02  0    3    2
+6 18.1   6  225 105 2.76 3.460 20.22  1    3    1
+> for (col in d)
++ library(tidyr)
+> d %>%
++   keep(is.numeric) %>% 
++   gather() %>%
++   head()
+  key value
+1 mpg  21.0
+2 mpg  21.0
+3 mpg  22.8
+4 mpg  21.4
+5 mpg  18.7
+6 mpg  18.1
+> library(ggplot2)
+> d %>%
++   keep(is.numeric) %>%
++   gather() %>%
++   ggplot(aes(value)) +
++   facet_wrap(~ key, scales = "free") +
++   geom_histogram()
+
+> library(ggplot2)
+> d %>%
++   keep(is.numeric) %>%
++   gather() %>%
++   ggplot(aes(value)) +
++   facet_wrap(~ key, scales = "free") +
++   geom_density()
+
+Histogram is saved as .png file in GitHub link: https://github.com/Manishchugh79/DATA-ANALYTICS-WITH-R-EXCEL-TABLEAU_Session7Assignment7.1
 
 2. Check the probability distribution of all variables in mtcars
 
