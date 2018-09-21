@@ -111,7 +111,15 @@ Histogram is saved as .png file in GitHub link: https://github.com/Manishchugh79
 2. Check the probability distribution of all variables in mtcars
 
 3. Write a program to create boxplot for all variables.
-
+Answer:
+> library(reshape2)
+> library(ggplot2)
+> gg <- melt(mtcars)
+No id variables; using all as measure variables
+> ggplot(gg, aes(x=value, fill=variable)) +
++   geom_histogram(binwidth=10)+
++   facet_grid(variable~.)
+> 
 
     Expected Output
 Not Applicable
