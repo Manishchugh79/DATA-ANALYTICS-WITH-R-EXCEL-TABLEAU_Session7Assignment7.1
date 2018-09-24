@@ -140,6 +140,25 @@ mean of x mean of y
  24.39231  17.14737 
 > 
 
+# ANOTHER METHOD WITH DIAGRAM: 
+
+plots<-list()
+cars<-rownames(mtcars)
+columnName<-colnames(mtcars)
+par(mfrow=c(3,4))
+for(i in 1:ncol(mtcars))
+local({
+  i <- i
+  tempVect<-mtcars[,1]
+names(tempVect)<-cars
+p1<-ggplot(mtcars,aes(x=mtcars[,1]))+geom_density(fill='green')
+plots[[i]] <<- p1
+p1
+})  
+Plot saved on GitHub link: DATA-ANALYTICS-WITH-R-EXCEL-TABLEAU_Session7Assignment7.1/7.1b Probability Distribution.png
+    
+
+
 3. Write a program to create boxplot for all variables.
 Answer:
 > library(reshape2)
